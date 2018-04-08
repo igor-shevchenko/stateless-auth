@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Аутентификация без состояния</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen-16x10.css">
+	<link rel="icon" type="image/png" sizes="192x192"  href="http://igorshevchenko.ru/static/css/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://igorshevchenko.ru/static/css/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="http://igorshevchenko.ru/static/css/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://igorshevchenko.ru/static/css/icons/favicon-16x16.png">
+	<style>
+		.shower.list {
+			background: url(style/texture.png); /* pattern from https://www.toptal.com/designers/subtlepatterns/seamless-paper-texture/ */
+		}
+
+		.slide {
+			font-size: 35px;
+			line-height: 1.75em;
+		}
+
+		.slide h2 {
+			color: #000000;
+		}
+
+		.slide::after {
+			visibility: hidden;
+		}
+
+		.slide pre.shell code::before {
+			position: absolute;
+			margin-left: -1em;
+			color: #979a9e;
+			content: "$";
+		}
+
+		.slide.no-top-padding {
+			padding-top: 30px;
+		}
+	</style>
+</head>
+<body class="shower list">
+    <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter46242456 = new Ya.Metrika({ id:46242456, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/46242456" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+	<header class="caption">
+		<h1>Аутентификация без состояния</h1>
+		<p><a href="http://igorshevchenko.ru">Игорь Шевченко</a>, <a href="https://antidasoftware.com/">Antida software</a></p>
+	</header>
+
+	<section class="slide" id="cover">
+		<div class="place bottom" id="title">
+			<h2>Аутентификация без состояния</h2>
+			<p>Игорь Шевченко, Antida software</p>
+		</div>
+		<img src="images/cover.svg" class="cover">
+		<style>
+			#title {
+				width: 90%;
+				margin-bottom: 20px;
+			}
+			#cover .cover {
+				top: 40%;
+			}
+			#cover h2 {
+				margin: 30px 0 0;
+				text-align:center;
+				font-size:70px;
+				color: #000;
+			}
+			#cover p {
+				margin:10px 0 0;
+				text-align:center;
+				font-style:italic;
+				color: #000;
+			}
+		</style>
+	</section>
+
+	
+
+	<script src="node_modules/shower-core/shower.min.js"></script>
+
+</body>
+</html>
