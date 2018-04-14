@@ -28,11 +28,8 @@
 			visibility: hidden;
 		}
 
-		.slide pre.shell code::before {
-			position: absolute;
-			margin-left: -1em;
-			color: #979a9e;
-			content: "$";
+		.slide pre code {
+			font-size: 20px;
 		}
 
 		.slide.no-top-padding {
@@ -76,7 +73,92 @@
 		</style>
 	</section>
 
-	
+	<section class="slide">
+		<h2 class="shout">HTTP — протокол <em>без состояния</em></h2>
+	</section>
+
+	<section class="slide">
+		<h2>Cookies (RFC 2965)</h2>
+		<p>Набор пар ключ-значение с ограничениями (по размеру и количеству)</p>
+		<p>Сервер устанавливает значения с помощью заголовка <code>Set-Cookie</code></p>
+		<p>Клиент отправляет весь набор в каждом HTTP-запросе</p>
+	</section>
+
+	<section class="slide">
+		<h2>Сессии в Django</h2>
+		<pre><code>
+def test_count_session(request):
+    if 'count' in request.session:
+        <mark>request.session['count'] += 1</mark>
+        return HttpResponse('new count=%s' % request.session['count'])
+    else:
+        <mark>request.session['count'] = 1</mark>
+        return HttpResponse('No count in session. Setting to 1')</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Сессии в Django — cookie</h2>
+		<pre><code>Set-Cookie:<mark>sessionid=a92d67e44a9b92d7dafca67e507985c0;</mark>
+           expires=Thu, 07-Jul-2018 04:16:28 GMT;
+           Max-Age=1209600;
+           Path=/</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Сессии в Django — БД</h2>
+		<pre><code>CREATE TABLE "django_session" (
+    "session_key" varchar(40) NOT NULL PRIMARY KEY,
+    "session_data" text NOT NULL,
+    "expire_date" datetime NOT NULL
+);</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Сессии в Django</h2>
+		<p>Сессии сохраняются в БД и извлекаются из нее в <code>SessionMiddleware</code>.</p>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">Stateless tokens</h2>
+	</section>
+
+	<section class="slide">
+		<h2>Токены без состояния</h2>
+		<p>Токены содержат в себе всё состояние целиком, за ним не нужно ходить в БД.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Для чего их используют</h2>
+		<ul>
+			<li>Обрабатывать запросы быстрее.</li>
+			<li>Аутентифицровать без БД (микросервисы, распределенные системы).</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>HTTP-заголовки вместо кук</h2>
+		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
+		<p>Плюсы:</p>
+		<ul>
+			<li>Нет ограничения по размеру</li>
+			<li>Нет проблемы CSRF</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>HTTP-заголовки вместо кук</h2>
+		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
+		<p>Минусы:</p>
+		<ul>
+			<li>Тяжело использовать при серверном рендеринге</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">JWT</h2>
+	</section>
+
+
 
 	<script src="node_modules/shower-core/shower.min.js"></script>
 
