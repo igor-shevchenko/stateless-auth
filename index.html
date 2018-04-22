@@ -32,6 +32,10 @@
 			font-size: 20px;
 		}
 
+		.slide pre code.large {
+			font-size: 40px;
+		}
+
 		.slide.no-top-padding {
 			padding-top: 30px;
 		}
@@ -156,9 +160,234 @@ def test_count_session(request):
 
 	<section class="slide">
 		<h2 class="shout">JWT</h2>
+		<!--Вставить сюда картинку-->
 	</section>
 
+	<section class="slide">
+		<h2>JWT (RFC 7519)</h2>
+		<p>JSON Web Token — стандарт де-факто для токенов.</p>
+		<p>+ JOSE, JWS, JWE, JWK</p>
+	</section>
 
+	<section class="slide">
+		<h2>Пример JWT-токена</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
+kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA
+95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
+gQ</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — заголовок</h2>
+		<pre><code class="large"><mark>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</mark>.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
+kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA
+95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
+gQ</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — тело</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+<mark>eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
+kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9</mark>.TJVA
+95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
+gQ</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — подпись</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
+kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.<mark>TJVA
+95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
+gQ</mark></code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Заголовок JWT-токена</h2>
+		<pre><code class="large">{
+"alg": "HS256",
+"typ": "JWT"
+}</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Тело JWT-токена</h2>
+		<pre><code class="large">{
+"sub": "1234567890",
+"name": "John Doe",
+"admin": true
+}</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Тело JWT-токена — стандартные поля</h2>
+		<pre><code style="font-size: 30px;">iss
+sub
+aud
+exp
+nbf
+iat
+jti</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Тело JWT-токена — стандартные поля</h2>
+		<pre><code style="font-size: 30px;">iss
+sub
+aud
+<mark>exp</mark>
+nbf
+iat
+jti</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Подпись JWT-токена</h2>
+		<p>Подпись защищает токен от подделки.</p>
+		<p>HMAC — Hash-based Message Authentication Code</p>
+	</section>
+
+	<section class="slide">
+		<h2>Подпись JWT-токена</h2>
+		<pre><code style="font-size: 33px;">SHA-256("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
+9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpsva
+G4gRG9lIiwiYWRtaW4iOnRydWV9") = "0347BDC2A1D
+84271102819563FAB96081D60A4659833AEA75100E3A
+35569D26B"</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Подпись JWT-токена</h2>
+		<pre><code style="font-size: 33px;">SHA-256("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
+9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpsva
+G4gRG9lIiwiYWRtaW4iOnRydWV9" <mark>+ "secret"</mark>) =
+"F72C6575182A5B25196D0A01F58D97C33FB0D6E800A
+BAB349775991AADC36CF8"</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Шифрование JWT-токенов</h2>
+		<p>Симметричное — один ключ, чтобы зашифровать и расшифровать.</p>
+		<p>Асимметричное — шифруем приватным ключом, расшифровываем публичным ключом.</p>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">JWT в питоне</h2>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">Проблемы токенов без состояния</h2>
+	</section>
+
+	<section class="slide">
+		<h2>Продление сессии</h2>
+		<p>Когда время жизни токена истекает, нужно обновить его, не обрывая пользовательской сессии.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Продление сессии: схема с куками</h2>
+		<ul>
+			<li>Обновляем сессию в БД.</li>
+			<li>Делаем новый <code>Set-Cookie</code> с новым id сессии и новой датой истечения.</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>Продление сессии: пара токенов</h2>
+		<p>Access token — токен без состояния, действует недолго.</p>
+		<p>Refresh token — токен с состоянием, действует долго, позволяет получить новый access token.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Продление сессии аналогично кукам</h2>
+		<ul>
+			<li>Проверяем оставшееся время жизни токена на сервере.</li>
+			<li>Если осталось мало времени, добавляем в ответ сервера заголовок <code>Set-Authorization</code> с новым токеном.</li>
+			<li>Обновляем токен на клиенте, если ответ содержит этот заголовок.</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>Отзыв токенов</h2>
+		<p>Когда пользователь разлогинивается или удаляет аккаунт, хочется чтобы его токены переставали работать.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Отзыв токенов: blacklisting</h2>
+		<p>Токены могут хранить уникальный идентификатор в поле <code>jti</code>.</p>
+		<p>Эти идентификаторы можно хранить в «черном списке» до тех пор, пока токены не истекут.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Отзыв токенов: смириться</h2>
+		<p>Если токены действуют недолго, то пусть они продолжают действовать.</p>
+		<p>Но это следует учитывать и проверять действительность токенов в особо важных местах.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Обновление формата токенов</h2>
+		<p>В какой-то момент мы захотим добавить в тело токена новое поле.</p>
+		<p>Когда сессии лежат в БД, мы можем просто пройтись по ним и обновить данные.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Обновление формата токенов: обратная совместимость</h2>
+		<p>Когда мы обновим формат JWT-токена, пользователи продолжат присылать старые токены, сохраненные у них в localStorage.</p>
+		<p>Нужно предусмотреть это и корректно обрабатывать эту ситуацию.</p>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">Безопасность JWT</h2>
+	</section>
+
+	<section class="slide">
+		<img src="https://d1ro8r1rbfn3jf.cloudfront.net/ms_104038/TTLGiBtJM3M3Qd4I2XayLSVXhhZT0B/JSON%2BWeb%2BTokens%2B-%2Bjwt.io%2B%25E2%2580%2594%2B%25D0%25AF%25D0%25BD%25D0%25B4%25D0%25B5%25D0%25BA%25D1%2581.%25D0%2591%25D1%2580%25D0%25B0%25D1%2583%25D0%25B7%25D0%25B5%25D1%2580%2B2018-04-22%2B23.51.17.png?Expires=1524509581&Signature=nBasxFXaD-TqS0fHpwMcbNBG7hKV04Z7w8g8TfzinTXk~0PO8weHz4PVJwer-5UF-yu3xW1Yf3tUvhHmdMuMJssnL~wg5nJHcez5-VaGcmqAi7phAP-2GGZmAXFV~Y-fC4JrivcbqCYEVFN8jym2pIipNnnfn8MCebRFi3A59gHhQbzPB31Pv9KmBxWffznreLG-qzj7I1b2y1IcYNSn1JGg-qP~qM9WJ8HGLZtU86jHBdarYnTE~bdOJoqPQtREtJQizI0Kl2wdymGyo4k9CgsuXkFG4m89Mn~LjVckoc~3aWFfzRgAry36WN90~cffllo~19-w3AncKlTQusMOeg__&Key-Pair-Id=APKAJHEJJBIZWFB73RSA" class="cover">
+	</section>
+
+	<section class="slide">
+		<h2>Атака с подменой алгоритмов</h2>
+		<p>JWT поддерживает алгоритм <code>none</code>, который никак не валидирует подпись.</p>
+		<p>Некоторые библиотеки доверяют заголовку токена.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Атака с подменой алгоритмов: pyjwt 0.4.2</h2>
+		<pre><code class="large">import jwt
+token = ...
+jwt.decode(token, 'secret')
+</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Атака с подменой алгоритмов: pyjwt 1.0.0</h2>
+		<pre><code class="large">import jwt
+token = ...
+jwt.decode(token, 'secret',
+		   <mark>algorithms=['HS256']</mark>)
+</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2 class="shout">Безопасники не любят JWT</h2>
+	</section>
+
+	<section class="slide">
+		<h2>Альтернативы JWT</h2>
+		<ul>
+			<li><a href="https://kev.inburke.com/kevin/things-to-use-instead-of-jwt/">Безголовый JWT</a></li>
+			<li><a href="https://github.com/paragonie/paseto">Paseto</a></li>
+			<li><a href="https://github.com/fernet/spec/blob/master/Spec.md">Fernet</a></li>
+			<li><a href="http://hackingdistributed.com/2014/05/16/macaroons-are-better-than-cookies/">Macaroons</a></li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>...</h2>
+		<p>Несмотря на недостатки, JWT — самый поддерживаемый и популярный формат токенов.</p>
+	</section>
 
 	<script src="node_modules/shower-core/shower.min.js"></script>
 
