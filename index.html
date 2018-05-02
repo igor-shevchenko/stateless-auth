@@ -155,7 +155,7 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout" style="color: white; margin-top: 50px;">Stateless<br>tokens</h2>
+		<h2 class="shout" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
 		<img src="images/pechkinbox.jpg" class="cover">
 	</section>
 
@@ -173,9 +173,8 @@ def test_count_session(request):
 		<p>Токены содержат в себе всё состояние целиком, за ним не нужно ходить в БД.</p>
 	</section>
 
-	<section class="slide">
-		<h2 class="shout">JWT</h2>
-		<!--Вставить сюда картинку-->
+	<section class="slide black">
+		<img src="images/jwt.svg" class="cover" height="500">
 	</section>
 
 	<section class="slide">
@@ -312,8 +311,9 @@ BAB349775991AADC36CF8"</code></pre>
 		<p>Асимметричное — шифруем приватным ключом, расшифровываем публичным ключом.</p>
 	</section>
 
-	<section class="slide">
-		<h2 class="shout">Использование JWT-токенов</h2>
+	<section class="slide black">
+		<h2 class="shout" style="color: white; margin-top: 150px;">Реализация</h2>
+		<img src="images/milk.jpg" alt="" class="cover">
 	</section>
 
 	<section class="slide">
@@ -365,11 +365,12 @@ BAB349775991AADC36CF8"</code></pre>
 			<li>API handler, который выдает токен в обмен на логин и пароль.</li>
 			<li>Middleware, который читает данные из токена и обогащает ими request.</li>
 		</ul>
-		<img src="images/bicycle.png" class="hero" height="290">
+		<img src="images/bicycle.png" class="hero" height="310">
 	</section>
 
-	<section class="slide">
-		<h2 class="shout">Проблемы токенов без состояния</h2>
+	<section class="slide black">
+		<h2 class="shout" style="color: white;">Проблемы токенов без состояния</h2>
+		<img src="images/klad.jpg" alt="" class="cover">
 	</section>
 
 	<section class="slide">
@@ -430,8 +431,11 @@ BAB349775991AADC36CF8"</code></pre>
 		<p>Нужно предусмотреть это и корректно обрабатывать эту ситуацию.</p>
 	</section>
 
-	<section class="slide">
-		<h2 class="shout">Безопасность JWT</h2>
+	<section class="slide black">
+		<h2 class="shout" style="color: white;margin-top: 250px; background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,0.9)),					to(rgba(0,0,0,0)), color-stop(.5,#333333)				);">
+			Безопасность
+		</h2>
+		<img src="https://ic.pics.livejournal.com/kabzon/7182730/1001824/1001824_original.jpg" alt="" class="cover">
 	</section>
 
 	<section class="slide black">
@@ -441,7 +445,8 @@ BAB349775991AADC36CF8"</code></pre>
 	<section class="slide">
 		<h2>Атака с подменой алгоритмов</h2>
 		<p>JWT поддерживает алгоритм <code>none</code>, который никак не валидирует подпись.</p>
-		<p>Некоторые библиотеки доверяют заголовку токена.</p>
+		<p>Некоторые библиотеки<br>доверяют заголовку токена.</p>
+		<img src="images/fake.png" alt="" class="hero" height="350">
 	</section>
 
 	<section class="slide">
