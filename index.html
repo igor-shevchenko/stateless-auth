@@ -101,7 +101,7 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide">
-		<h2>Сессии в Django — cookie</h2>
+		<h2>Сессии в Django: cookie</h2>
 		<pre><code>Set-Cookie:<mark>sessionid=a92d67e44a9b92d7dafca67e507985c0;</mark>
            expires=Thu, 07-Jul-2018 04:16:28 GMT;
            Max-Age=1209600;
@@ -109,7 +109,7 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide">
-		<h2>Сессии в Django — БД</h2>
+		<h2>Сессии в Django: БД</h2>
 		<pre><code>CREATE TABLE "django_session" (
     "session_key" varchar(40) NOT NULL PRIMARY KEY,
     "session_data" text NOT NULL,
@@ -118,8 +118,14 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide">
-		<h2>Сессии в Django</h2>
+		<h2>Сессии в Django: middleware</h2>
 		<p>Сессии сохраняются в БД и извлекаются из нее в <code>SessionMiddleware</code>.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Сессии в Django: пользователи</h2>
+		<p>По ключу <code>_auth_user_id</code> в сессии хранится id пользователя.</p>
+		<p>Данные пользователя извлекаются из БД отдельным запросом.</p>
 	</section>
 
 	<section class="slide">
@@ -127,35 +133,16 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide">
+		<h2>Проблемы</h2>
+		<ul>
+			<li>Можно ли не делать эти два запроса к базе?</li>
+			<li>Можно ли аутентифицровать без БД?</li>
+		</ul>
+	</section>
+
+	<section class="slide">
 		<h2>Токены без состояния</h2>
 		<p>Токены содержат в себе всё состояние целиком, за ним не нужно ходить в БД.</p>
-	</section>
-
-	<section class="slide">
-		<h2>Для чего их используют</h2>
-		<ul>
-			<li>Обрабатывать запросы быстрее.</li>
-			<li>Аутентифицровать без БД (микросервисы, распределенные системы).</li>
-		</ul>
-	</section>
-
-	<section class="slide">
-		<h2>HTTP-заголовки вместо кук</h2>
-		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
-		<p>Плюсы:</p>
-		<ul>
-			<li>Нет ограничения по размеру</li>
-			<li>Нет проблемы CSRF</li>
-		</ul>
-	</section>
-
-	<section class="slide">
-		<h2>HTTP-заголовки вместо кук</h2>
-		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
-		<p>Минусы:</p>
-		<ul>
-			<li>Тяжело использовать при серверном рендеринге</li>
-		</ul>
 	</section>
 
 	<section class="slide">
@@ -172,53 +159,54 @@ def test_count_session(request):
 	<section class="slide">
 		<h2>Пример JWT-токена</h2>
 		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
-kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA
-95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
-gQ</code></pre>
+eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Пример JWT-токена — заголовок</h2>
 		<pre><code class="large"><mark>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</mark>.
-eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
-kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA
-95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
-gQ</code></pre>
+eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Пример JWT-токена — тело</h2>
 		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-<mark>eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
-kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9</mark>.TJVA
-95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
-gQ</code></pre>
+<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Пример JWT-токена — подпись</h2>
 		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I
-kpsvaG4gRG9lIiwiYWRtaW4iOnRydWV9.<mark>TJVA
-95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7H
-gQ</mark></code></pre>
+eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ.<mark>wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</mark></code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Заголовок JWT-токена</h2>
 		<pre><code class="large">{
-"alg": "HS256",
-"typ": "JWT"
+  "alg": "HS256",
+  "typ": "JWT"
 }</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Тело JWT-токена</h2>
 		<pre><code class="large">{
-"sub": "1234567890",
-"name": "John Doe",
-"admin": true
+  "user_id": 12,
+  "name": "Ivan Petrov",
+  "isAdmin": true,
+  "exp": 1516239022
 }</code></pre>
 	</section>
 
@@ -251,6 +239,10 @@ jti</code></pre>
 	</section>
 
 	<section class="slide">
+		<img src="images/hash.svg" class="cover" height="600">
+	</section>
+
+	<section class="slide">
 		<h2>Подпись JWT-токена</h2>
 		<pre><code style="font-size: 33px;">SHA-256("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
 9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpsva
@@ -269,13 +261,68 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide">
+		<h2>Подпись JWT-токена</h2>
+		<p>Не зная секретного ключа, невозможно вычислить подпись.
+			Поэтому мы можем быть уверены, что полученный от клиента токен подлинный.</p>
+	</section>
+
+	<section class="slide">
 		<h2>Шифрование JWT-токенов</h2>
 		<p>Симметричное — один ключ, чтобы зашифровать и расшифровать.</p>
 		<p>Асимметричное — шифруем приватным ключом, расшифровываем публичным ключом.</p>
 	</section>
 
 	<section class="slide">
-		<h2 class="shout">JWT в питоне</h2>
+		<h2 class="shout">Использование JWT-токенов</h2>
+	</section>
+
+	<section class="slide">
+		<h2>HTTP-заголовки вместо кук</h2>
+		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
+		<p>Плюсы:</p>
+		<ul>
+			<li>Нет ограничения по размеру</li>
+			<li>Нет проблемы CSRF</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>HTTP-заголовки вместо кук</h2>
+		<p>Токены обычно вместо кук хранятся в localStorage, а передаются в заголовках.</p>
+		<p>Минусы:</p>
+		<ul>
+			<li>Тяжело использовать при серверном рендеринге</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>JWT в питоне: PyJWT</h2>
+		<pre><code>>>> import jwt
+>>> encoded = jwt.encode({'some': 'payload'}, 'secret', algorithm='HS256')
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lIjoicGF5bG9hZCJ9.4twFt5NiznN8
+4AWoo1d7KO1T_yoc0Z6XOpOVswacPZg'
+
+>>> jwt.decode(encoded, 'secret', algorithms=['HS256'])
+{'some': 'payload'}
+</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>JWT в питоне: фреймворки</h2>
+		<ul>
+			<li><a href="https://github.com/GetBlimp/django-rest-framework-jwt">django-rest-framework-jwt</a></li>
+			<li><a href="https://github.com/davesque/django-rest-framework-simplejwt">django-rest-framework-simplejwt</a></li>
+			<li><a href="https://github.com/vimalloc/flask-jwt-extended">flask-jwt-extended</a></li>
+			<li><a href="https://github.com/hzlmn/aiohttp-jwt">aiohttp-jwt</a></li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>JWT в питоне: свой велосипед</h2>
+		<ul>
+			<li>API handler, который выдает токен в обмен на логин и пароль.</li>
+			<li>Middleware, который читает данные из токена и обогащает ими request.</li>
+		</ul>
 	</section>
 
 	<section class="slide">
@@ -328,13 +375,13 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide">
-		<h2>Обновление формата токенов</h2>
+		<h2>Изменение тела</h2>
 		<p>В какой-то момент мы захотим добавить в тело токена новое поле.</p>
 		<p>Когда сессии лежат в БД, мы можем просто пройтись по ним и обновить данные.</p>
 	</section>
 
 	<section class="slide">
-		<h2>Обновление формата токенов: обратная совместимость</h2>
+		<h2>Изменение тела: обратная совместимость</h2>
 		<p>Когда мы обновим формат JWT-токена, пользователи продолжат присылать старые токены, сохраненные у них в localStorage.</p>
 		<p>Нужно предусмотреть это и корректно обрабатывать эту ситуацию.</p>
 	</section>
@@ -354,7 +401,7 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide">
-		<h2>Атака с подменой алгоритмов: pyjwt 0.4.2</h2>
+		<h2>Атака с подменой алгоритмов: PyJWT 0.4.2</h2>
 		<pre><code class="large">import jwt
 token = ...
 jwt.decode(token, 'secret')
@@ -362,7 +409,7 @@ jwt.decode(token, 'secret')
 	</section>
 
 	<section class="slide">
-		<h2>Атака с подменой алгоритмов: pyjwt 1.0.0</h2>
+		<h2>Атака с подменой алгоритмов: PyJWT 1.0.0</h2>
 		<pre><code class="large">import jwt
 token = ...
 jwt.decode(token, 'secret',
@@ -385,8 +432,52 @@ jwt.decode(token, 'secret',
 	</section>
 
 	<section class="slide">
-		<h2>...</h2>
+		<h2>Выбирайте с умом</h2>
 		<p>Несмотря на недостатки, JWT — самый поддерживаемый и популярный формат токенов.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Совет напоследок</h2>
+		<p>Попробуйте использовать JWT или аналоги в качестве одноразовых токенов для подтверждения почты, смены пароля или отписки от рассылок.</p>
+		<p>Это гораздо удобнее, чем генерировать и хранить случайные значения.</p>
+	</section>
+
+	<section class="slide">
+		<h2>Ссылки</h2>
+		<ul>
+			<li><a href="https://eli.thegreenplace.net/2011/06/24/how-django-sessions-work-introduction">Как работают сессии в Django</a></li>
+			<li><a href="https://jwt.io">Официальный сайт JWT</a></li>
+			<li><a href="https://dev.to/neilmadden/7-best-practices-for-json-web-tokens">Лучшие практики для JWT</a></li>
+			<li><a href="https://github.com/jpadilla/pyjwt">PyJWT</a></li>
+			<li><a href="https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries/">Критические уязвимости в библиотеках</a></li>
+			<li><a href="https://storify.com/jcuid/thomas-h-ptacek-don-t-use-json-web-tokens">Не используйте JWT</a></li>
+		</ul>
+	</section>
+
+
+	<section class="slide">
+		<h2>Вопросы?</h2>
+		<div class="at-bottom">
+			<p>
+				Слайды: <a href="https://igor-shevchenko.github.io/stateless-auth">https://igor-shevchenko.github.io/stateless-auth</a>
+				<br>
+				Почта: <a href="mailto:mail@igorshevchenko.ru">mail@igorshevchenko.ru</a>
+				<br>
+				Телеграм: <a href="https://t.me/igor_shevchenko" class="low-underline">@igor_shevchenko</a>
+				<br>
+				Твиттер: <a href="https://twitter.com/igorshevchenko_" class="low-underline">@igorshevchenko_</a>
+			</p>
+		</div>
+		<style>
+			.low-underline {
+				padding-bottom: 5px;
+			}
+			.at-bottom {
+				position: absolute;
+				bottom: 0;
+				font-size: 30px;
+			}
+		</style>
 	</section>
 
 	<script src="node_modules/shower-core/shower.min.js"></script>
