@@ -39,6 +39,21 @@
 		.slide.no-top-padding {
 			padding-top: 30px;
 		}
+
+		img.hero {
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+		}
+		img.hero.top {
+			bottom: auto;
+			top: 20px;
+		}
+
+		.at-bottom {
+			position: absolute;
+			bottom: 0;
+		}
 	</style>
 </head>
 <body class="shower list">
@@ -49,36 +64,47 @@
 	</header>
 
 	<section class="slide" id="cover">
-		<div class="place bottom" id="title">
+		<div id="title" class="at-bottom">
 			<h2>Аутентификация без состояния</h2>
 			<p>Игорь Шевченко, Antida software</p>
 		</div>
-		<img src="images/cover.svg" class="cover">
+		<img class="cover" src="images/pechkin.jpg">
 		<style>
-			#title {
-				width: 90%;
-				margin-bottom: 20px;
-			}
-			#cover .cover {
-				top: 40%;
-			}
 			#cover h2 {
-				margin: 30px 0 0;
+				margin:30px 0 0;
+				color:#FFF;
 				text-align:center;
 				font-size:70px;
-				color: #000;
-			}
+				}
 			#cover p {
 				margin:10px 0 0;
 				text-align:center;
+				color:#FFF;
 				font-style:italic;
-				color: #000;
+				font-size:20px;
+				}
+				#cover p a {
+					color:#FFF;
+					}
+			#cover img {
+				max-height: none;
+			}
+			#title {
+				left: 0;
+				width: 100%;
+				background-image: -webkit-gradient(
+					linear, left bottom, left top, from(rgba(0,0,0,0.9)),
+					to(rgba(0,0,0,0)), color-stop(.5,#333333)
+				);
+				padding-bottom: 30px;
+				padding-top: 40px;
 			}
 		</style>
 	</section>
 
 	<section class="slide">
 		<h2 class="shout">HTTP — протокол <em>без состояния</em></h2>
+		<img src="images/ktotam.png" alt="" class="hero top" height="250">
 	</section>
 
 	<section class="slide">
@@ -128,8 +154,9 @@ def test_count_session(request):
 		<p>Данные пользователя извлекаются из БД отдельным запросом.</p>
 	</section>
 
-	<section class="slide">
-		<h2 class="shout">Stateless tokens</h2>
+	<section class="slide black">
+		<h2 class="shout" style="color: white; margin-top: 50px;">Stateless<br>tokens</h2>
+		<img src="images/pechkinbox.jpg" class="cover">
 	</section>
 
 	<section class="slide">
@@ -138,6 +165,7 @@ def test_count_session(request):
 			<li>Можно ли не делать эти два запроса к базе?</li>
 			<li>Можно ли аутентифицровать без БД?</li>
 		</ul>
+		<img src="images/cows.png" class="hero" height="310">
 	</section>
 
 	<section class="slide">
@@ -163,6 +191,16 @@ eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
 GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
 oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
 VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Структура JWT-токена</h2>
+		<ul>
+			<li>Заголовок</li>
+			<li>Тело</li>
+			<li>Подпись</li>
+		</ul>
+		<img src="images/documents.png" class="hero" height="330">
 	</section>
 
 	<section class="slide">
@@ -235,7 +273,9 @@ jti</code></pre>
 	<section class="slide">
 		<h2>Подпись JWT-токена</h2>
 		<p>Подпись защищает токен от подделки.</p>
+		<p>&nbsp;</p>
 		<p>HMAC — Hash-based Message Authentication Code</p>
+		<img src="images/hash.png" class="hero top" height="310">
 	</section>
 
 	<section class="slide">
@@ -284,6 +324,7 @@ BAB349775991AADC36CF8"</code></pre>
 			<li>Нет ограничения по размеру</li>
 			<li>Нет проблемы CSRF</li>
 		</ul>
+		<img src="images/buter.png" class="hero" height="350">
 	</section>
 
 	<section class="slide">
@@ -293,6 +334,7 @@ BAB349775991AADC36CF8"</code></pre>
 		<ul>
 			<li>Тяжело использовать при серверном рендеринге</li>
 		</ul>
+		<img src="images/buter.png" class="hero" height="350">
 	</section>
 
 	<section class="slide">
@@ -323,6 +365,7 @@ BAB349775991AADC36CF8"</code></pre>
 			<li>API handler, который выдает токен в обмен на логин и пароль.</li>
 			<li>Middleware, который читает данные из токена и обогащает ими request.</li>
 		</ul>
+		<img src="images/bicycle.png" class="hero" height="290">
 	</section>
 
 	<section class="slide">
@@ -332,6 +375,7 @@ BAB349775991AADC36CF8"</code></pre>
 	<section class="slide">
 		<h2>Продление сессии</h2>
 		<p>Когда время жизни токена истекает, нужно обновить его, не обрывая пользовательской сессии.</p>
+		<img src="images/sharik.png" style="position: absolute; bottom: 20px; right: 20px;" height="340">
 	</section>
 
 	<section class="slide">
