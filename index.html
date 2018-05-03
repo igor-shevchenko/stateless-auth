@@ -54,6 +54,13 @@
 			position: absolute;
 			bottom: 0;
 		}
+
+		.stroke {
+			-webkit-text-stroke: 5px black;
+		}
+		.stroke.thin {
+			-webkit-text-stroke: 3px black;
+		}
 	</style>
 </head>
 <body class="shower list">
@@ -65,13 +72,13 @@
 
 	<section class="slide" id="cover">
 		<div id="title" class="at-bottom">
-			<h2>Аутентификация без состояния</h2>
+			<h2 class="stroke thin">Аутентификация без состояния</h2>
 			<p>Игорь Шевченко, Antida software</p>
 		</div>
 		<img class="cover" src="images/pechkin.jpg">
 		<style>
 			#cover h2 {
-				margin:30px 0 0;
+				margin:30px 0 30px;
 				color:#FFF;
 				text-align:center;
 				font-size:70px;
@@ -92,11 +99,6 @@
 			#title {
 				left: 0;
 				width: 100%;
-				background-image: -webkit-gradient(
-					linear, left bottom, left top, from(rgba(0,0,0,0.9)),
-					to(rgba(0,0,0,0)), color-stop(.5,#333333)
-				);
-				padding-bottom: 30px;
 				padding-top: 40px;
 			}
 		</style>
@@ -155,7 +157,7 @@ def test_count_session(request):
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
+		<h2 class="shout stroke" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
 		<img src="images/pechkinbox.jpg" class="cover">
 	</section>
 
@@ -312,7 +314,7 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout" style="color: white; margin-top: 150px;">Реализация</h2>
+		<h2 class="shout stroke" style="color: white; margin-top: 150px;">Реализация</h2>
 		<img src="images/milk.jpg" alt="" class="cover">
 	</section>
 
@@ -369,7 +371,7 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout" style="color: white;">Проблемы токенов без состояния</h2>
+		<h2 class="shout stroke" style="color: white;">Проблемы токенов без состояния</h2>
 		<img src="images/klad.jpg" alt="" class="cover">
 	</section>
 
@@ -432,7 +434,7 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout" style="color: white;margin-top: 250px; background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,0.9)),					to(rgba(0,0,0,0)), color-stop(.5,#333333)				);">
+		<h2 class="shout stroke" style="color: white; margin-top: 250px;">
 			Безопасность
 		</h2>
 		<img src="https://ic.pics.livejournal.com/kabzon/7182730/1001824/1001824_original.jpg" alt="" class="cover">
