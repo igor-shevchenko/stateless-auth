@@ -110,6 +110,12 @@
 	</section>
 
 	<section class="slide">
+		<h2>Состояние</h2>
+		<p>TCP — stateful. Он хранит информацию об открытом соединении и переданных данных.</p>
+		<p>HTTP — stateless. Он не обязан хранить информацию между запросами.</p>
+	</section>
+
+	<section class="slide">
 		<h2>Cookies (RFC 2965)</h2>
 		<p>Набор пар ключ-значение с ограничениями (по размеру и количеству)</p>
 		<p>Сервер устанавливает значения с помощью заголовка <code>Set-Cookie</code></p>
@@ -119,13 +125,12 @@
 	<section class="slide">
 		<h2>Сессии в Django</h2>
 		<pre><code>
-def test_count_session(request):
-    if 'count' in request.session:
-        <mark>request.session['count'] += 1</mark>
-        return HttpResponse('new count=%s' % request.session['count'])
-    else:
-        <mark>request.session['count'] = 1</mark>
-        return HttpResponse('No count in session. Setting to 1')</code></pre>
+if 'count' in request.session:
+	<mark>request.session['count'] += 1</mark>
+	return HttpResponse('new count=%s' % request.session['count'])
+else:
+	<mark>request.session['count'] = 1</mark>
+	return HttpResponse('No count in session. Setting to 1')</code></pre>
 	</section>
 
 	<section class="slide">
@@ -214,30 +219,30 @@ VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
-		<h2>Пример JWT-токена — тело</h2>
-		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
-	</section>
-
-	<section class="slide">
-		<h2>Пример JWT-токена — подпись</h2>
-		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ.<mark>wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</mark></code></pre>
-	</section>
-
-	<section class="slide">
 		<h2>Заголовок JWT-токена</h2>
 		<pre><code class="large">{
   "alg": "HS256",
   "typ": "JWT"
 }</code></pre>
 	</section>
+
+    <section class="slide">
+		<h2>Пример JWT-токена — заголовок</h2>
+		<pre><code class="large"><mark>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</mark>.
+eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — тело</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
+    </section>
 
 	<section class="slide">
 		<h2>Тело JWT-токена</h2>
@@ -269,6 +274,24 @@ aud
 nbf
 iat
 jti</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — тело</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Пример JWT-токена — подпись</h2>
+		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
+GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
+oxNTE2MjM5MDIyfQ.<mark>wgPzH0Nl3JwtIeFeKI-i
+VMqJ4E12dc7nX6eNq2AtFzc</mark></code></pre>
 	</section>
 
 	<section class="slide">
@@ -314,7 +337,7 @@ BAB349775991AADC36CF8"</code></pre>
 	</section>
 
 	<section class="slide black">
-		<h2 class="shout stroke" style="color: white; margin-top: 150px;">Реализация</h2>
+		<h2 class="shout stroke" style="color: white; margin-top: 150px;">Применение</h2>
 		<img src="images/milk.jpg" alt="" class="cover">
 	</section>
 
@@ -457,6 +480,16 @@ BAB349775991AADC36CF8"</code></pre>
 token = ...
 jwt.decode(token, 'secret')
 </code></pre>
+	</section>
+
+	<section class="slide">
+		<h2>Как происходит атака с подменой алгоритмов</h2>
+		<ol>
+			<li>Атакующий получает подлинный токен.</li>
+			<li>Он декодирует тело токена и меняет свои данные.</li>
+			<li>В заголовке он заменяет <code>HS256</code> на <code>none</code>.</li>
+			<li>Собрав полученный токен, он отправляет его на сервер.</li>
+		</ol>
 	</section>
 
 	<section class="slide">
