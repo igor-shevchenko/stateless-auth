@@ -228,15 +228,6 @@ VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 }</code></pre>
 	</section>
 
-    <section class="slide">
-		<h2>Пример JWT-токена — заголовок</h2>
-		<pre><code class="large"><mark>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</mark>.
-eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
-	</section>
-
 	<section class="slide">
 		<h2>Пример JWT-токена — тело</h2>
 		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
@@ -276,15 +267,6 @@ aud
 nbf
 iat
 jti</code></pre>
-	</section>
-
-	<section class="slide">
-		<h2>Пример JWT-токена — тело</h2>
-		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
@@ -404,14 +386,6 @@ BAB349775991AADC36CF8"</code></pre>
 		<h2>Продление сессии</h2>
 		<p>Когда время жизни токена истекает, нужно обновить его, не обрывая пользовательской сессии.</p>
 		<img src="images/sharik.png" style="position: absolute; bottom: 20px; right: 20px;" height="340">
-	</section>
-
-	<section class="slide">
-		<h2>Продление сессии: схема с куками</h2>
-		<ul>
-			<li>Обновляем сессию в БД.</li>
-			<li>Делаем новый <code>Set-Cookie</code> с новым id сессии и новой датой истечения.</li>
-		</ul>
 	</section>
 
 	<section class="slide">
