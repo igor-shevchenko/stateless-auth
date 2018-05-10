@@ -162,6 +162,34 @@ else:
 		<p>Данные пользователя извлекаются из БД отдельным запросом.</p>
 	</section>
 
+	<section class="slide">
+		<img src="images/cookies.svg" class="cover">
+		<!--@startuml
+skinparam defaultFontSize 25
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor Пользователь
+entity Приложение
+database БД
+
+Пользователь -> Приложение : Запрос
+
+Приложение -> БД : ID сессии
+БД -> Приложение : Данные сессии
+|||
+Приложение -> БД : ID пользователя
+БД -> Приложение : Данные пользователя
+|||
+note right of Приложение: Основная логика обработки запроса
+|||
+Приложение -> БД : Сохранение сесии
+БД -> Приложение : ОК
+
+Приложение -> Пользователь : Ответ на запрос
+@enduml-->
+	</section>
+
 	<section class="slide black">
 		<h2 class="shout stroke" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
 		<img src="images/pechkinbox.jpg" class="cover">
@@ -170,7 +198,7 @@ else:
 	<section class="slide">
 		<h2>Проблемы</h2>
 		<ul>
-			<li>Можно ли не делать эти два запроса к базе?</li>
+			<li>Можно ли не делать эти запросы к базе?</li>
 			<li>Можно ли аутентифицровать без БД?</li>
 		</ul>
 		<img src="images/cows.png" class="hero" height="310">
@@ -228,15 +256,6 @@ VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 }</code></pre>
 	</section>
 
-    <section class="slide">
-		<h2>Пример JWT-токена — заголовок</h2>
-		<pre><code class="large"><mark>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</mark>.
-eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ.wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
-	</section>
-
 	<section class="slide">
 		<h2>Пример JWT-токена — тело</h2>
 		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
@@ -276,15 +295,6 @@ aud
 nbf
 iat
 jti</code></pre>
-	</section>
-
-	<section class="slide">
-		<h2>Пример JWT-токена — тело</h2>
-		<pre><code class="large">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-<mark>eyJ1c2VyX2lkIjoxMiwibmFtZSI6Ikl2YW4gU
-GV0cm92IiwiaXNBZG1pbiI6dHJ1ZSwiZXhwIj
-oxNTE2MjM5MDIyfQ</mark>.wgPzH0Nl3JwtIeFeKI-i
-VMqJ4E12dc7nX6eNq2AtFzc</code></pre>
 	</section>
 
 	<section class="slide">
@@ -395,6 +405,30 @@ BAB349775991AADC36CF8"</code></pre>
 		<img src="images/bicycle.png" class="hero" height="310">
 	</section>
 
+	<section class="slide">
+		<img src="images/token-flow.svg" alt="" class="cover">
+		<!--@startuml
+skinparam defaultFontSize 25
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor Пользователь
+entity Приложение
+database БД
+
+Пользователь -> Приложение : Логин и пароль
+Приложение -> БД : Проверка данных
+БД -> Приложение : ОК
+Приложение -> Пользователь: Токен
+|||
+Пользователь -> Приложение : Запрос с токеном
+Приложение -> Приложение : Валидация токена
+note right of Приложение: Основная логика обработки запроса
+|||
+Приложение -> Пользователь : Ответ на запрос
+@enduml-->
+	</section>
+
 	<section class="slide black">
 		<h2 class="shout stroke" style="color: white;">Проблемы токенов без состояния</h2>
 		<img src="images/klad.jpg" alt="" class="cover">
@@ -404,14 +438,6 @@ BAB349775991AADC36CF8"</code></pre>
 		<h2>Продление сессии</h2>
 		<p>Когда время жизни токена истекает, нужно обновить его, не обрывая пользовательской сессии.</p>
 		<img src="images/sharik.png" style="position: absolute; bottom: 20px; right: 20px;" height="340">
-	</section>
-
-	<section class="slide">
-		<h2>Продление сессии: схема с куками</h2>
-		<ul>
-			<li>Обновляем сессию в БД.</li>
-			<li>Делаем новый <code>Set-Cookie</code> с новым id сессии и новой датой истечения.</li>
-		</ul>
 	</section>
 
 	<section class="slide">
