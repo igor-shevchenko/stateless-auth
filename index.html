@@ -162,6 +162,34 @@ else:
 		<p>Данные пользователя извлекаются из БД отдельным запросом.</p>
 	</section>
 
+	<section class="slide">
+		<img src="images/cookies.svg" class="cover">
+		<!--@startuml
+skinparam defaultFontSize 25
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor Пользователь
+entity Приложение
+database БД
+
+Пользователь -> Приложение : Запрос
+
+Приложение -> БД : ID сессии
+БД -> Приложение : Данные сессии
+|||
+Приложение -> БД : ID пользователя
+БД -> Приложение : Данные пользователя
+|||
+note right of Приложение: Основная логика обработки запроса
+|||
+Приложение -> БД : Сохранение сесии
+БД -> Приложение : ОК
+
+Приложение -> Пользователь : Ответ на запрос
+@enduml-->
+	</section>
+
 	<section class="slide black">
 		<h2 class="shout stroke" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
 		<img src="images/pechkinbox.jpg" class="cover">
@@ -375,6 +403,30 @@ BAB349775991AADC36CF8"</code></pre>
 			<li>Middleware, который читает данные из токена и обогащает ими request.</li>
 		</ul>
 		<img src="images/bicycle.png" class="hero" height="310">
+	</section>
+
+	<section class="slide">
+		<img src="images/token-flow.svg" alt="" class="cover">
+		<!--@startuml
+skinparam defaultFontSize 25
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor Пользователь
+entity Приложение
+database БД
+
+Пользователь -> Приложение : Логин и пароль
+Приложение -> БД : Проверка данных
+БД -> Приложение : ОК
+Приложение -> Пользователь: Токен
+|||
+Пользователь -> Приложение : Запрос с токеном
+Приложение -> Приложение : Валидация токена
+note right of Приложение: Основная логика обработки запроса
+|||
+Приложение -> Пользователь : Ответ на запрос
+@enduml-->
 	</section>
 
 	<section class="slide black">
