@@ -50,9 +50,9 @@
 			top: 20px;
 		}
 
-		.at-bottom {
+		.at-top {
 			position: absolute;
-			bottom: 0;
+			top: 0;
 		}
 
 		.stroke {
@@ -71,20 +71,19 @@
 	</header>
 
 	<section class="slide" id="cover">
-		<div id="title" class="at-bottom">
+		<div id="title" class="at-top">
 			<h2 class="stroke thin">Аутентификация без состояния</h2>
 			<p>Игорь Шевченко, Antida software</p>
 		</div>
 		<img class="cover" src="images/pechkin.jpg">
 		<style>
 			#cover h2 {
-				margin:30px 0 30px;
+				margin:20px 0 20px;
 				color:#FFF;
 				text-align:center;
-				font-size:70px;
+				font-size:85px;
 				}
 			#cover p {
-				margin:10px 0 0;
 				text-align:center;
 				color:#FFF;
 				font-style:italic;
@@ -125,26 +124,26 @@
 
 	<section class="slide">
 		<h2>Сессии в Django</h2>
-		<pre><code>
-if 'count' in request.session:
+		<pre><code style="font-size: 36px">if 'count' in request.session:
 	<mark>request.session['count'] += 1</mark>
-	return HttpResponse('new count=%s' % request.session['count'])
 else:
 	<mark>request.session['count'] = 1</mark>
-	return HttpResponse('No count in session. Setting to 1')</code></pre>
+return HttpResponse('count=%s' %
+			request.session['count'])</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Сессии в Django: cookie</h2>
-		<pre><code>Set-Cookie:<mark>sessionid=a92d67e44a9b92d7dafca67e507985c0;</mark>
-           expires=Thu, 07-Jul-2018 04:16:28 GMT;
-           Max-Age=1209600;
-           Path=/</code></pre>
+		<pre><code style="font-size: 34px">Set-Cookie:
+<mark>sessionid=a92d67e44a9b92d7dafca67e507985c0;</mark>
+expires=Thu, 07-Jul-2018 04:16:28 GMT;
+Max-Age=1209600;
+Path=/</code></pre>
 	</section>
 
 	<section class="slide">
 		<h2>Сессии в Django: БД</h2>
-		<pre><code>CREATE TABLE "django_session" (
+		<pre><code style="font-size: 28px">CREATE TABLE "django_session" (
     "session_key" varchar(40) NOT NULL PRIMARY KEY,
     "session_data" text NOT NULL,
     "expire_date" datetime NOT NULL
@@ -190,11 +189,6 @@ note right of Приложение: Основная логика обработ
 @enduml-->
 	</section>
 
-	<section class="slide black">
-		<h2 class="shout stroke" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
-		<img src="images/pechkinbox.jpg" class="cover">
-	</section>
-
 	<section class="slide">
 		<h2>Проблемы</h2>
 		<ul>
@@ -204,9 +198,15 @@ note right of Приложение: Основная логика обработ
 		<img src="images/cows.png" class="hero" height="310">
 	</section>
 
+	<section class="slide black">
+		<h2 class="shout stroke" style="color: white; margin-top: 50px;">Токены без<br>состояния</h2>
+		<img src="images/pechkinbox.jpg" class="cover">
+	</section>
+
 	<section class="slide">
 		<h2>Токены без состояния</h2>
-		<p>Токены содержат в себе всё состояние целиком, за ним не нужно ходить в БД.</p>
+		<p>В запросах приходят токены, которые содержат в себе всё состояние целиком.</p>
+		<p>Состояние не хранится в БД, поэтому <em>без</em> состояния.</p>
 	</section>
 
 	<section class="slide black">
